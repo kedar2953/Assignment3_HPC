@@ -1,0 +1,39 @@
+1. schedule Clause
+    The schedule clause determines how iterations of a loop are divided among threads. It can help balance the load and improve parallel performance.
+
+    Syntax: #pragma omp for schedule(schedule_type, chunk_size)
+
+    Options:
+
+        static: Iterations are divided into chunks of the specified size, and each chunk is assigned to a thread in a round-robin fashion.
+        dynamic: Iterations are assigned to threads dynamically. Threads request new chunks of iterations as they finish their current ones.
+        guided: Similar to dynamic scheduling, but the chunk size decreases over time.
+
+
+2. nowait Clause
+    The nowait clause allows threads to proceed to the next parallel construct without waiting for all threads to complete the current construct. This is useful for improving efficiency by avoiding unnecessary synchronization.
+
+    Syntax: #pragma omp for nowait
+
+
+3. reduction Clause
+    The reduction clause is used to perform a reduction operation on a shared variable across threads. It combines the results from different threads using a specified operation (e.g., sum, product).
+
+    Syntax: #pragma omp parallel reduction(reduction_op:variable)
+
+    Options:
+
+    +: Sum
+    *: Product
+    &: Bitwise AND
+    |: Bitwise OR
+    ^: Bitwise XOR
+
+4. ordered Clause
+    The ordered clause ensures that the iterations of a loop are executed in a specific order, as specified by the original sequential loop order. This is useful when the order of operations is important.
+
+    Syntax: #pragma omp for ordered
+
+5. The collapse clause combines nested loops into a single loop, allowing OpenMP to distribute iterations of the combined loop across threads more efficiently.
+
+    Syntax: #pragma omp for collapse(n)
